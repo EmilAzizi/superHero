@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AvengersLeague {
-    Superhero[] superHeroList = new Superhero[3];
-    List<Superhero> superheroDataBase = new ArrayList<>();
+    private Superhero[] superHeroList = new Superhero[3];
+    private List<Superhero> superheroDataBase = new ArrayList<>();
 
     public AvengersLeague(){
     }
