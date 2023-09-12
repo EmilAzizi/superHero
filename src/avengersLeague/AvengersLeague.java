@@ -59,14 +59,9 @@ public class AvengersLeague {
         return superhero;
     }
 
-    public void createSuperheroList(){
+    public void createSuperheroList(int index){
         // superheroDataBase.add(createSuperHero());
-        superHeroList[0] = createSuperHero();
-        superHeroList[1] = createSuperHero();
-        superHeroList[2] = createSuperHero();
-        superHeroList[3] = createSuperHero();
-        superHeroList[4] = createSuperHero();
-
+        superHeroList[index] = createSuperHero();
     }
 
     public void displayHeroes(){
