@@ -6,22 +6,21 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AvengersLeague {
-    private Superhero[] superHeroList = new Superhero[3];
-    private List<Superhero> superheroDataBase = new ArrayList<>();
+    Superhero superhero;
+    Scanner input = new Scanner(System.in);
+    char yesOrNo;
+    String name;
+    boolean race;
+    int year;
+    int strength;
+    String power;
+    char superHeroNameYesOrNo;
+    private ArrayList<Superhero> superheroDataBase = new ArrayList<>();
 
     public AvengersLeague(){
     }
 
     public Superhero createSuperHero(){
-        Superhero superhero;
-        Scanner input = new Scanner(System.in);
-        char yesOrNo;
-        String name;
-        boolean race;
-        int year;
-        int strength;
-        String power;
-        char superHeroNameYesOrNo;
 
         System.out.print("What is the name of your hero? ");
         name = input.nextLine();
@@ -59,25 +58,31 @@ public class AvengersLeague {
         return superhero;
     }
 
-    public void createSuperheroList(int index){
-        // superheroDataBase.add(createSuperHero());
-        superHeroList[index] = createSuperHero();
+    public void createSuperheroList(){
+        superheroDataBase.add(createSuperHero());
     }
 
     public void displayHeroes(){
         System.out.println("Your heroes are: ");
         int count = 0;
-        for(Superhero hero : superHeroList){
+        for(Superhero hero : superheroDataBase){
             count++;
-            System.out.println(count);
-            System.out.println("Name: " + hero.getName());
-            System.out.println("Super hero name: " + hero.getSuperHeroName());
-            System.out.println("Race: " + hero.getRace());
-            System.out.println("Strength level: " + hero.getStrength());
-            System.out.println("Year: " + hero.getYear());
-            System.out.println("Power: " + hero.getPower());
+            System.out.println(count + " Name: " + hero.getName());
+            System.out.println("  Super hero name: " + hero.getSuperHeroName());
+            System.out.println("  Race: " + hero.getRace());
+            System.out.println("  Strength level: " + hero.getStrength());
+            System.out.println("  Year: " + hero.getYear());
+            System.out.println("  Power: " + hero.getPower());
             System.out.println("---------------------------------------------");
 
         }
+    }
+
+    public ArrayList<Superhero> getDatabase(){
+        return superheroDataBase;
+    }
+
+    public String getName(){
+        return name;
     }
 }
