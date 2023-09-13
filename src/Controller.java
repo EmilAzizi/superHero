@@ -1,14 +1,14 @@
-import avengersLeague.AvengersLeague;
-import superhero.Superhero;
+import database.Database;
 
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Controller {
-    AvengersLeague avengersLeague;
+    Database database;
+    // String searchForHero;
 
-    public Controller(AvengersLeague avengersLeague){
-        this.avengersLeague = avengersLeague;
+    public Controller(Database database){
+        this.database = database;
     }
 
     public void run(){
@@ -24,15 +24,25 @@ public class Controller {
             }
             System.out.println(1 + ". Create a superhero!");
             System.out.println(2 + ". Display heroes!");
+            System.out.println(3 + ". Search for a hero");
             System.out.println(9 + ". End the superhero creation");
             int answer = input.nextInt();
             input.nextLine();
 
             if (answer == 1) {
-                avengersLeague.createSuperheroList();
+                database.createSuperheroList();
                 createAnotherHeroIndicator = 1;
             } else if (answer == 2) {
-                avengersLeague.displayHeroes();
+                database.displayHeroes();
+            } else if(answer == 3){
+                System.out.println("Would you like to search for: ");
+                System.out.println(1 + ". Hero's normal name?");
+                System.out.println(2 + ". Hero's super-hero name?");
+                int nameOrHeroName = input.nextInt();
+                System.out.print("What hero are you looking for? ");
+                database.searchForHero(nameOrHeroName);
+
+
             } else if (answer == 9){
                 runAgain = false;
             }

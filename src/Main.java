@@ -1,8 +1,8 @@
-import avengersLeague.AvengersLeague;
+import database.Database;
 public class Main {
     public static void main(String[] args) {
-        AvengersLeague AL = new AvengersLeague();
-        Controller controller = new Controller(AL);
+        Database DB = new Database();
+        Controller controller = new Controller(DB);
         controller.run();
     }
 }
