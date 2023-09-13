@@ -82,7 +82,7 @@ public class Database {
         String searchForName = input.nextLine();
         if(heroNameOrSuperheroName == 1){
             for (Superhero hero : superheroDataBase) {
-                if (hero.getName().equalsIgnoreCase(searchForName)) {
+                if (hero.getName().contains(searchForName)) {
                     System.out.println("  Your hero was found! Here is an overview of " + hero.getName());
                     System.out.println("  Super hero name: " + hero.getSuperHeroName());
                     System.out.println("  Race: " + hero.getRace());
@@ -95,7 +95,7 @@ public class Database {
             }
         } else if(heroNameOrSuperheroName == 2){
             for (Superhero hero : superheroDataBase) {
-                if (hero.getSuperHeroName().equalsIgnoreCase(searchForName)) {
+                if (hero.getSuperHeroName().contains(searchForName)) {
                     System.out.println("  Your hero was found! Here is an overview of the " + hero.getSuperHeroName() + " AKA " + hero.getName());
                     System.out.println("  Race: " + hero.getRace());
                     System.out.println("  Strength level: " + hero.getStrength());
