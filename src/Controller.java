@@ -20,7 +20,7 @@ public class Controller {
 
         do {
             if(createAnotherHeroIndicator == 1){
-                System.out.println("Create your next hero?");
+                System.out.println("Would you like to create another hero?");
             }
             System.out.println(1 + ". Create a superhero!");
             System.out.println(2 + ". Display heroes!");
