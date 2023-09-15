@@ -5,14 +5,15 @@ import java.util.Scanner;
 
 public class Controller {
     Database database;
-    // String searchForHero;
+    Scanner input;
+
 
     public Controller(Database database){
         this.database = database;
+        input = new Scanner(System.in).useLocale(Locale.US);
     }
 
     public void run(){
-        Scanner input = new Scanner(System.in).useLocale(Locale.US);
         int createAnotherHeroIndicator = 0;
 
         System.out.println("Welcome to the official superhero academy. Let's create your superhero!");
@@ -24,8 +25,9 @@ public class Controller {
             }
             System.out.println(1 + ". Create a superhero!");
             System.out.println(2 + ". Display heroes!");
-            System.out.println(3 + ". Search for a hero");
-            System.out.println(9 + ". End the superhero creation");
+            System.out.println(3 + ". Search for a hero.");
+            System.out.println(4 + ". Edit a hero.");
+            System.out.println(9 + ". End the superhero creation.");
             int answer = input.nextInt();
             input.nextLine();
 
@@ -41,8 +43,8 @@ public class Controller {
                 int nameOrHeroName = input.nextInt();
                 System.out.print("What hero are you looking for? ");
                 database.searchForHero(nameOrHeroName);
-
-
+            } else if(answer == 4){
+                database.editHero();
             } else if (answer == 9){
                 runAgain = false;
             }

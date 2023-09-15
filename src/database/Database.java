@@ -110,4 +110,69 @@ public class Database {
             System.out.println("Your hero was not found. Please create the hero in order to view it.");
         }
     }
+
+    public void editHero(){
+        System.out.print("Which hero would you like to edit? (Search by normal name): ");
+        String changeHero = input.nextLine();
+        for (Superhero hero : superheroDataBase) {
+            if (hero.getName().contains(changeHero)) {
+                System.out.println("What would you like to change about " + hero.getName());
+                System.out.println(1 + ". Name");
+                System.out.println(2 + ". Superhero name");
+                System.out.println(3 + ". Race");
+                System.out.println(4 + ". Strength level");
+                System.out.println(5 + ". Year");
+                System.out.println(6 + ". Power");
+                int answer = input.nextInt();
+                input.nextLine();
+
+                if(answer == 1){
+                    System.out.print("Change your hero's name to: ");
+                    String newName = input.nextLine();
+                    hero.setName(newName);
+
+                } else if(answer == 2){
+                    System.out.print("Does your hero have a superhero name? [y/n] ");
+                    char newSuperheroNameYesOrNo = input.next().charAt(0);
+                    input.nextLine();
+
+                    if(newSuperheroNameYesOrNo == 'y' ||newSuperheroNameYesOrNo == 'Y'){
+                        System.out.print("Change your hero's superhero name to: ");
+                        String newSuperHeroName = input.nextLine();
+                        hero.setSuperHeroName(newSuperHeroName);
+                    } else{
+                        hero.setSuperHeroName(null);
+                    }
+
+                } else if(answer == 3){
+                    System.out.print("Is your hero human? [y/n] ");
+                    char yesOrNo = input.next().charAt(0);
+                    if(yesOrNo == 'y' || yesOrNo == 'Y'){
+                        race = true;
+                        hero.setRace(race);
+                    } else {
+                        race = false;
+                        hero.setRace(race);
+                    }
+
+                } else if(answer == 4){
+                    System.out.print("Change your hero's strength level to: ");
+                    int newStrengthLevel = input.nextInt();
+                    hero.setStrength(newStrengthLevel);
+
+                } else if(answer == 5){
+                    System.out.print("Change your hero's creation year to: ");
+                    int newYear = input.nextInt();
+                    input.nextLine();
+                    hero.setYear(newYear);
+
+                } else if(answer == 6){
+                    System.out.print("Change your hero's power to: ");
+                    String newPower = input.nextLine();
+                    hero.setPower(newPower);
+                }
+            }
+        }
+
+    }
 }
