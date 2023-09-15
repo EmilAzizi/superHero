@@ -52,4 +52,23 @@ public class Superhero {
             return superHeroName;
         }
     }
+    public void setName(String newName){
+        name = newName;
+    }
+    public void setRace(boolean race){
+        this.race = race;
+        getRace();
+    }
+    public void setYear(int year){
+        this.year = year;
+    }
+    public void setStrength(int strength){
+        this.strength = strength;
+    }
+    public void setSuperHeroName(String superHeroName){
+        this.superHeroName = superHeroName;
+    }
+    public void setPower(String power){
+        this.power = power;
+    }
 }
