@@ -62,18 +62,21 @@ public class Database {
     }
 
     public void displayHeroes() {
-        System.out.println("Your heroes are: ");
-        int count = 0;
-        for (Superhero hero : superheroDataBase) {
-            count++;
-            System.out.println(count + " Name: " + hero.getName());
-            System.out.println("  Super hero name: " + hero.getSuperHeroName());
-            System.out.println("  Race: " + hero.getRace());
-            System.out.println("  Strength level: " + hero.getStrength());
-            System.out.println("  Year: " + hero.getYear());
-            System.out.println("  Power: " + hero.getPower());
-            System.out.println("---------------------------------------------");
-
+        if(superheroDataBase.isEmpty()){
+            System.out.println("You must create a hero first in order to diplay it.");
+        } else {
+            System.out.println("Your heroes are: ");
+            int count = 0;
+            for (Superhero hero : superheroDataBase) {
+                count++;
+                System.out.println(count + " Name: " + hero.getName());
+                System.out.println("  Super hero name: " + hero.getSuperHeroName());
+                System.out.println("  Race: " + hero.getRace());
+                System.out.println("  Strength level: " + hero.getStrength());
+                System.out.println("  Year: " + hero.getYear());
+                System.out.println("  Power: " + hero.getPower());
+                System.out.println("---------------------------------------------");
+            }
         }
     }
 
