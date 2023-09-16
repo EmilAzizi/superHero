@@ -1,5 +1,6 @@
 import database.Database;
 
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -14,13 +15,13 @@ public class Controller {
     }
 
     public void run(){
-        int createAnotherHeroIndicator = 0;
+        boolean createAnotherHeroIndicator = false;
 
         System.out.println("Welcome to the official superhero academy. Let's create your superhero!");
         boolean runAgain = true;
 
         do {
-            if(createAnotherHeroIndicator == 1){
+            if(createAnotherHeroIndicator){
                 System.out.println("Would you like to create another hero?");
             }
             System.out.println(1 + ". Create a superhero!");
@@ -28,25 +29,30 @@ public class Controller {
             System.out.println(3 + ". Search for a hero.");
             System.out.println(4 + ". Edit a hero.");
             System.out.println(9 + ". End the superhero creation.");
-            int answer = input.nextInt();
-            input.nextLine();
 
-            if (answer == 1) {
-                database.createSuperheroList();
-                createAnotherHeroIndicator = 1;
-            } else if (answer == 2) {
-                database.displayHeroes();
-            } else if(answer == 3){
-                System.out.println("Would you like to search for: ");
-                System.out.println(1 + ". Hero's normal name?");
-                System.out.println(2 + ". Hero's super-hero name?");
-                int nameOrHeroName = input.nextInt();
-                System.out.print("What hero are you looking for? ");
-                database.searchForHero(nameOrHeroName);
-            } else if(answer == 4){
-                database.editHero();
-            } else if (answer == 9){
-                runAgain = false;
+            try {
+                int answer = input.nextInt();
+                input.nextLine();
+                if (answer == 1) {
+                    database.createSuperheroList();
+                    createAnotherHeroIndicator = true;
+                } else if (answer == 2) {
+                    database.displayHeroes();
+                } else if (answer == 3) {
+                    System.out.println("Would you like to search for: ");
+                    System.out.println(1 + ". Hero's normal name?");
+                    System.out.println(2 + ". Hero's super-hero name?");
+                    int nameOrHeroName = input.nextInt();
+                    System.out.print("What hero are you looking for? ");
+                    database.searchForHero(nameOrHeroName);
+                } else if (answer == 4) {
+                    database.editHero();
+                } else if (answer == 9) {
+                    runAgain = false;
+                }
+            } catch(InputMismatchException e){
+                System.out.println("Invalid input. Please type a number corresponding to a valid option.");
+                input.nextLine();
             }
         } while(runAgain);
     }
