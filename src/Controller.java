@@ -49,6 +49,8 @@ public class Controller {
                     database.editHero();
                 } else if (answer == 9) {
                     runAgain = false;
+                } else {
+                    System.out.println("The input is not corresponding to the choices shown above, please pick one of five options.");
                 }
             } catch(InputMismatchException e){
                 System.out.println("Invalid input. Please type a number corresponding to a valid option.");

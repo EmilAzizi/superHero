@@ -117,8 +117,11 @@ public class Database {
     public void editHero(){
         System.out.print("Which hero would you like to edit? (Search by normal name): ");
         String changeHero = input.nextLine();
+        boolean isFound = false;
+
         for (Superhero hero : superheroDataBase) {
             if (hero.getName().contains(changeHero)) {
+                isFound = true;
                 System.out.println("What would you like to change about " + hero.getName());
                 System.out.println(1 + ". Name");
                 System.out.println(2 + ". Superhero name");
@@ -176,6 +179,8 @@ public class Database {
                 }
             }
         }
-
+        if(!isFound) {
+            System.out.println("Your hero was not found, please create the hero in order to edit it.");
+        }
     }
 }
