@@ -5,12 +5,12 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Controller {
-    Database database;
-    Scanner input;
+    private final Database database;
+    private final Scanner input;
 
 
-    public Controller(Database database){
-        this.database = database;
+    public Controller(){
+        this.database = new Database();
         input = new Scanner(System.in).useLocale(Locale.US);
     }
 

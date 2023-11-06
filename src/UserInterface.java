@@ -7,7 +7,7 @@ public class UserInterface {
 
     public UserInterface(){
         DB = new Database();
-        controller = new Controller(DB);
+        controller = new Controller();
     }
 
     public void startProgram(){
