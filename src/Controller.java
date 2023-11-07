@@ -21,13 +21,9 @@ public class Controller {
 
         do {
             if(createAnotherHeroIndicator){
-                System.out.println("Would you like to create another hero?");
+               UI.anotherHero();
             }
-            System.out.println(1 + ". Create a superhero!");
-            System.out.println(2 + ". Display heroes!");
-            System.out.println(3 + ". Search for a hero.");
-            System.out.println(4 + ". Edit a hero.");
-            System.out.println(9 + ". End the superhero creation.");
+            UI.superheroMenu();
 
             try {
                 int answer = input.nextInt();
@@ -40,17 +36,17 @@ public class Controller {
                 } else if (answer == 3) {
                     UI.searchForHeroMessage();
                     int nameOrHeroName = input.nextInt();
-                    System.out.print("What hero are you looking for? ");
+                    UI.whichHero();
                     database.searchForHero(nameOrHeroName);
                 } else if (answer == 4) {
                     database.editHero();
                 } else if (answer == 9) {
                     runAgain = false;
                 } else {
-                    System.out.println("The input is not corresponding to the choices shown above, please pick one of five options.");
+                    UI.wrongChoice();
                 }
             } catch(InputMismatchException e){
-                System.out.println("Invalid input. Please type a number corresponding to a valid option.");
+                UI.wrongInput();
                 input.nextLine();
             }
         } while(runAgain);
