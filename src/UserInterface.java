@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class UserInterface {
 
+    private Scanner keyboard = new Scanner(System.in);
 
     public void anotherHero() {
         System.out.println("Would you like to create another hero?");
@@ -14,6 +15,7 @@ public class UserInterface {
         System.out.println(2 + ". Display heroes!");
         System.out.println(3 + ". Search for a hero.");
         System.out.println(4 + ". Edit a hero.");
+        System.out.println(5 + ". Sort heroes by requested attribute.");
         System.out.println(9 + ". End the superhero creation.");
     }
 
@@ -160,5 +162,15 @@ public class UserInterface {
         System.out.print("Is your hero human? [y/n] ");
     }
 
+    public void sortHeroesByAttributeMenu() {
+        System.out.println("""
+                What would you like to sort by?
+                1. Name
+                2. Superhero name
+                3. Race
+                4. Strength
+                5. Power
+                6. Year created""");
+    }
 
 }
