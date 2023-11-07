@@ -1,23 +1,22 @@
-import database.Database;
-
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Controller {
-    private final Database database;
+    private final Database database = new Database(this);
     private final Scanner input;
+    private final UserInterface UI = new UserInterface();
 
 
     public Controller(){
-        this.database = new Database();
         input = new Scanner(System.in).useLocale(Locale.US);
     }
 
     public void run(){
         boolean createAnotherHeroIndicator = false;
 
-        System.out.println("Welcome to the official superhero academy. Let's create your superhero!");
+        UI.welcomeMessage();
+
         boolean runAgain = true;
 
         do {
@@ -39,9 +38,7 @@ public class Controller {
                 } else if (answer == 2) {
                     database.displayHeroes();
                 } else if (answer == 3) {
-                    System.out.println("Would you like to search for: ");
-                    System.out.println(1 + ". Hero's normal name?");
-                    System.out.println(2 + ". Hero's super-hero name?");
+                    UI.searchForHeroMessage();
                     int nameOrHeroName = input.nextInt();
                     System.out.print("What hero are you looking for? ");
                     database.searchForHero(nameOrHeroName);
@@ -58,4 +55,100 @@ public class Controller {
             }
         } while(runAgain);
     }
+
+    public void giveSuperHeroNameQuestionFromUI(){
+        UI.giveSuperHeroNameQuestionMessage();
+    }
+
+
+    public void isHumanQuestionFromUI() {
+        UI.isHumanQuestionFromUI();
+    }
+
+    public void editSuperHeroNameMessageFromUI(String name){
+        UI.editHeroChoicesMessage(name);
+    }
+
+    public void showHeroFromUI(int count, String name, String superHeroName, String race,  double strength, int year, String power) {
+        UI.showHero(count, name, superHeroName, race, strength, year, power);
+    }
+
+    public void searchForHeroFromUI(String name, String superHeroName, String race, double strength, int year, String power){
+        UI.searchForHero(name, superHeroName, race, strength, year, power);
+    }
+
+
+    public void searchForHeroBySuperHeroName(String superHeroName, String name, String race, double strength, int year, String power) {
+        UI.searchForHeroBySuperHeroName(superHeroName, name, race, strength, year, power);
+    }
+
+    public void askForSuperheroYearFromUI(){
+        UI.askForSuperheroYear();
+    }
+
+    public void askForSuperheroStrengthFromUI(){
+        UI.askForSuperheroStrength();
+    }
+
+    public void askForSuperheroPowerFromUI(){
+        UI.askForSuperheroPower();
+    }
+
+    public void askForSuperheroHeroNameYesNoFromUI(){
+        UI.askForSuperheroHeroNameYesNo();
+    }
+
+    public void askForSuperheroHeroNameFromUI(){
+        UI.askForSuperheroHeroName();
+    }
+
+    public void mustCreateHeroFromUI() {
+        UI.mustCreateHero();
+    }
+
+    public void yourHeroesAreFromUI() {
+        UI.yourHeroesAre();
+    }
+
+    public void isHeroNotFoundFromUI() {
+        UI.isHeroNotFound();
+    }
+
+    public void changeHeroStrengthFromUI(){
+        UI.changeHeroStrength();
+    }
+
+    public void changeHeroYearFromUI(){
+        UI.changeHeroYear();
+    }
+
+    public void changeHeroPowerFromUI(){
+        UI.changeHeroPower();
+    }
+
+    public void heroWasNotFoundFromUI(){
+        UI.heroWasNotFound();
+    }
+
+    public void whichHeroToEditSearchByNormalNameFromUI() {
+        UI.whichHeroToEditSearchByNormalName();
+    }
+
+    public void changeHeroNametoFromUI() {
+        UI.changeHeroNameTo();
+    }
+
+    public void doesHeroHaveSuperHeroNameFromUI() {
+        UI.doesHeroHaveSuperHeroName();
+    }
+
+    public void changeSuperHeroNameToFromUI() {
+        UI.changeSuperHeroNameTo();
+    }
+
+    public void isYourHeroHumanFromUI() {
+        UI.isYourHeroHuman();
+    }
+
+
 }

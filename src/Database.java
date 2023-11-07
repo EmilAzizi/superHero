@@ -1,4 +1,3 @@
-package database;
 import superhero.Superhero;
 
 import java.util.ArrayList;
@@ -15,15 +14,17 @@ public class Database {
     String power;
     char superHeroNameYesOrNo;
     private ArrayList<Superhero> superheroDataBase = new ArrayList<>();
+    Controller controller;
 
-    public Database() {
+    public Database(Controller controller){
+        this.controller = controller;
     }
 
     public Superhero createSuperHero() {
 
-        System.out.print("What is the name of your hero? ");
+        controller.giveSuperHeroNameQuestionFromUI();
         name = input.nextLine();
-        System.out.print("Is your hero a human? [y/n] ");
+        controller.isHumanQuestionFromUI();
         yesOrNo = input.next().charAt(0);
 
         if (yesOrNo == 'y') {
@@ -32,22 +33,22 @@ public class Database {
             race = false;
         }
 
-        System.out.print("When did your hero get created? ");
+        controller.askForSuperheroYearFromUI();
         year = input.nextInt();
 
-        System.out.print("What is the strength of your hero? Ex. 9000: ");
+        controller.askForSuperheroStrengthFromUI();
         strength = input.nextInt();
         input.nextLine();
 
-        System.out.print("What kind of power/powers does your hero have? ");
+        controller.askForSuperheroPowerFromUI();
         power = input.nextLine();
 
-        System.out.print("Does your hero have a superhero-name? [y/n] ");
+        controller.askForSuperheroHeroNameYesNoFromUI();
         superHeroNameYesOrNo = input.next().charAt(0);
         input.nextLine();
 
         if (superHeroNameYesOrNo == 'y' || superHeroNameYesOrNo == 'Y') {
-            System.out.print("What is the superhero name? ");
+            controller.askForSuperheroHeroNameFromUI();
             String superHeroName = input.nextLine();
             superhero = new Superhero(name, race, year, strength, power, superHeroName);
         } else {
@@ -63,19 +64,13 @@ public class Database {
 
     public void displayHeroes() {
         if(superheroDataBase.isEmpty()){
-            System.out.println("You must create a hero first in order to diplay it.");
+            controller.mustCreateHeroFromUI();
         } else {
-            System.out.println("Your heroes are: ");
+            controller.yourHeroesAreFromUI();
             int count = 0;
             for (Superhero hero : superheroDataBase) {
                 count++;
-                System.out.println(count + " Name: " + hero.getName());
-                System.out.println("  Super hero name: " + hero.getSuperHeroName());
-                System.out.println("  Race: " + hero.getRace());
-                System.out.println("  Strength level: " + hero.getStrength());
-                System.out.println("  Year: " + hero.getYear());
-                System.out.println("  Power: " + hero.getPower());
-                System.out.println("---------------------------------------------");
+                controller.showHeroFromUI(count, hero.getName(), hero.getSuperHeroName(), hero.getRace(), hero.getStrength(), hero.getYear(), hero.getPower());
             }
         }
     }
@@ -86,12 +81,7 @@ public class Database {
         if(heroNameOrSuperheroName == 1){
             for (Superhero hero : superheroDataBase) {
                 if (hero.getName().contains(searchForName)) {
-                    System.out.println("  Your hero was found! Here is an overview of " + hero.getName());
-                    System.out.println("  Super hero name: " + hero.getSuperHeroName());
-                    System.out.println("  Race: " + hero.getRace());
-                    System.out.println("  Strength level: " + hero.getStrength());
-                    System.out.println("  Year: " + hero.getYear());
-                    System.out.println("  Power: " + hero.getPower());
+                    controller.searchForHeroFromUI(hero.getName(), hero.getSuperHeroName(), hero.getRace(), hero.getStrength(), hero.getYear(), hero.getPower());
                     isHeroFound = true;
                     break;
                 }
@@ -99,51 +89,41 @@ public class Database {
         } else if(heroNameOrSuperheroName == 2){
             for (Superhero hero : superheroDataBase) {
                 if (hero.getSuperHeroName().contains(searchForName)) {
-                    System.out.println("  Your hero was found! Here is an overview of the " + hero.getSuperHeroName() + " AKA " + hero.getName());
-                    System.out.println("  Race: " + hero.getRace());
-                    System.out.println("  Strength level: " + hero.getStrength());
-                    System.out.println("  Year: " + hero.getYear());
-                    System.out.println("  Power: " + hero.getPower());
+                    controller.searchForHeroBySuperHeroName(hero.getSuperHeroName(), hero.getName(), hero.getRace(), hero.getStrength(), hero.getYear(), hero.getPower());
                     isHeroFound = true;
                     break;
                 }
             }
         }
         if(!isHeroFound){
-            System.out.println("Your hero was not found. Please create the hero in order to view it.");
+            controller.isHeroNotFoundFromUI();
         }
     }
 
     public void editHero(){
-        System.out.print("Which hero would you like to edit? (Search by normal name): ");
+        controller.whichHeroToEditSearchByNormalNameFromUI();
         String changeHero = input.nextLine();
         boolean isFound = false;
 
         for (Superhero hero : superheroDataBase) {
             if (hero.getName().contains(changeHero)) {
                 isFound = true;
-                System.out.println("What would you like to change about " + hero.getName());
-                System.out.println(1 + ". Name");
-                System.out.println(2 + ". Superhero name");
-                System.out.println(3 + ". Race");
-                System.out.println(4 + ". Strength level");
-                System.out.println(5 + ". Year");
-                System.out.println(6 + ". Power");
+                controller.editSuperHeroNameMessageFromUI(hero.getName());
                 int answer = input.nextInt();
                 input.nextLine();
 
                 if(answer == 1){
-                    System.out.print("Change your hero's name to: ");
+                    controller.changeHeroPowerFromUI();
                     String newName = input.nextLine();
                     hero.setName(newName);
 
                 } else if(answer == 2){
-                    System.out.print("Does your hero have a superhero name? [y/n] ");
+                    controller.doesHeroHaveSuperHeroNameFromUI();
                     char newSuperheroNameYesOrNo = input.next().charAt(0);
                     input.nextLine();
 
                     if(newSuperheroNameYesOrNo == 'y' ||newSuperheroNameYesOrNo == 'Y'){
-                        System.out.print("Change your hero's superhero name to: ");
+                        controller.changeSuperHeroNameToFromUI();
                         String newSuperHeroName = input.nextLine();
                         hero.setSuperHeroName(newSuperHeroName);
                     } else{
@@ -151,7 +131,7 @@ public class Database {
                     }
 
                 } else if(answer == 3){
-                    System.out.print("Is your hero human? [y/n] ");
+                    controller.isYourHeroHumanFromUI();
                     char yesOrNo = input.next().charAt(0);
                     if(yesOrNo == 'y' || yesOrNo == 'Y'){
                         race = true;
@@ -162,25 +142,25 @@ public class Database {
                     }
 
                 } else if(answer == 4){
-                    System.out.print("Change your hero's strength level to: ");
+                    controller.changeHeroStrengthFromUI();
                     int newStrengthLevel = input.nextInt();
                     hero.setStrength(newStrengthLevel);
 
                 } else if(answer == 5){
-                    System.out.print("Change your hero's creation year to: ");
+                    controller.changeHeroYearFromUI();
                     int newYear = input.nextInt();
                     input.nextLine();
                     hero.setYear(newYear);
 
                 } else if(answer == 6){
-                    System.out.print("Change your hero's power to: ");
+                    controller.changeHeroPowerFromUI();
                     String newPower = input.nextLine();
                     hero.setPower(newPower);
                 }
             }
         }
         if(!isFound) {
-            System.out.println("Your hero was not found, please create the hero in order to edit it.");
+            controller.heroWasNotFoundFromUI();
         }
     }
 }
