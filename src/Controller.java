@@ -1,3 +1,7 @@
+import superhero.Superhero;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
@@ -40,7 +44,9 @@ public class Controller {
                     database.searchForHero(nameOrHeroName);
                 } else if (answer == 4) {
                     database.editHero();
-                } else if (answer == 9) {
+                } else if (answer == 5) {
+                    database.addHeroesToDatabase();
+                } else if (answer == 9){
                     runAgain = false;
                 } else {
                     UI.wrongChoice();
@@ -48,6 +54,8 @@ public class Controller {
             } catch(InputMismatchException e){
                 UI.wrongInput();
                 input.nextLine();
+            } catch(IOException e){
+                e.getMessage();
             }
         } while(runAgain);
     }

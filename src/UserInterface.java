@@ -14,6 +14,7 @@ public class UserInterface {
         System.out.println(2 + ". Display heroes!");
         System.out.println(3 + ". Search for a hero.");
         System.out.println(4 + ". Edit a hero.");
+        System.out.println(5 + ". Load heroes.");
         System.out.println(9 + ". End the superhero creation.");
     }
 

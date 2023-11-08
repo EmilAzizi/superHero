@@ -1,5 +1,6 @@
 import superhero.Superhero;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,6 +16,8 @@ public class Database {
     char superHeroNameYesOrNo;
     private ArrayList<Superhero> superheroDataBase = new ArrayList<>();
     Controller controller;
+
+    private final Filehandler file = new Filehandler("SuperheroDatabase.csv");
 
     public Database(Controller controller){
         this.controller = controller;
@@ -58,8 +61,9 @@ public class Database {
         return superhero;
     }
 
-    public void createSuperheroList() {
+    public void createSuperheroList() throws IOException {
         superheroDataBase.add(createSuperHero());
+        file.saveSuperheroToCSV(superheroDataBase);
     }
 
     public void displayHeroes() {
@@ -162,5 +166,16 @@ public class Database {
         if(!isFound) {
             controller.heroWasNotFoundFromUI();
         }
+    }
+
+    public void addHeroesToDatabase() throws IOException {
+        // ArrayList<Superhero> fileToBeLoaded = file.loadHeroes();
+        for(Superhero hero : file.loadHeroes()){
+            superheroDataBase.add(hero);
+        }
+    }
+
+    public ArrayList<Superhero> getSuperheroDataBase(){
+        return superheroDataBase;
     }
 }
