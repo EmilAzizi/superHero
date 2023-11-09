@@ -1,19 +1,18 @@
 import superhero.Superhero;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Filehandler {
     private final File f;
 
-    Superhero loadHero;
+    private Superhero loadHero;
+    private Database database;
 
-    public Filehandler(String fileName) {
+    public Filehandler(String fileName, Database database) {
         f = new File(fileName);
+        this.database = database;
     }
 
     public void saveSuperheroToCSV(ArrayList<Superhero> heroList) throws IOException {
@@ -37,8 +36,6 @@ public class Filehandler {
             String[] attributes = line.split(";");
 
             String name = attributes[0];
-            //System.out.println(attributes[2]);
-            //boolean isHuman = attributes[2].contains("Human");
             int year = Integer.parseInt(attributes[3]);
             double strength = Double.parseDouble(attributes[4]);
             String power = attributes[5];
@@ -51,14 +48,27 @@ public class Filehandler {
                 loadHero = new Superhero(name, false, year, strength, power, superHeroName);
             }
 
-            loadHero = new Superhero(name, true, year, strength, power, superHeroName);
-
             heroes.add(loadHero);
 
         }
 
         sc.close();
         return heroes;
+    }
+
+    public void changeSuperhero() throws IOException{
+
+        ArrayList<Superhero> heroesToEdit = database.getSuperheroDataBase();
+
+        new FileOutputStream(f).close();
+
+        PrintStream output = new PrintStream(f);
+        for (Superhero hero : heroesToEdit) {
+            String line = hero.getName() + ";" + hero.getSuperHeroName() + ";" + hero.getRace() + ";" + hero.getYear()
+                    + ";" + hero.getStrength() + ";" + hero.getPower();
+            output.println(line);
+        }
+        output.close();
     }
 
 }

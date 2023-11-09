@@ -1,7 +1,4 @@
-import superhero.Superhero;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
@@ -63,7 +60,6 @@ public class Controller {
     public void giveSuperHeroNameQuestionFromUI(){
         UI.giveSuperHeroNameQuestionMessage();
     }
-
 
     public void isHumanQuestionFromUI() {
         UI.isHumanQuestionFromUI();
@@ -154,5 +150,7 @@ public class Controller {
         UI.isYourHeroHuman();
     }
 
-
+    public void yourHeroesHaveBeenLoadedFromUI() {
+        UI.yourHeroesHaveBeenLoaded();
+    }
 }

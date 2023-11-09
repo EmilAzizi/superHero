@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Database {
-    Superhero superhero;
-    Scanner input = new Scanner(System.in);
-    char yesOrNo;
-    String name;
-    boolean race;
-    int year;
-    int strength;
-    String power;
-    char superHeroNameYesOrNo;
+    private Superhero superhero;
+    private Scanner input = new Scanner(System.in);
+    private char yesOrNo;
+    private String name;
+    private boolean race;
+    private int year;
+    private int strength;
+    private String power;
+    private char superHeroNameYesOrNo;
     private ArrayList<Superhero> superheroDataBase = new ArrayList<>();
-    Controller controller;
+    private Controller controller;
 
-    private final Filehandler file = new Filehandler("SuperheroDatabase.csv");
+    private final Filehandler file = new Filehandler("SuperheroDatabase.csv", this);
 
     public Database(Controller controller){
         this.controller = controller;
@@ -104,7 +104,7 @@ public class Database {
         }
     }
 
-    public void editHero(){
+    public void editHero() throws IOException {
         controller.whichHeroToEditSearchByNormalNameFromUI();
         String changeHero = input.nextLine();
         boolean isFound = false;
@@ -117,7 +117,7 @@ public class Database {
                 input.nextLine();
 
                 if(answer == 1){
-                    controller.changeHeroPowerFromUI();
+                    controller.changeHeroNametoFromUI();
                     String newName = input.nextLine();
                     hero.setName(newName);
 
@@ -161,6 +161,7 @@ public class Database {
                     String newPower = input.nextLine();
                     hero.setPower(newPower);
                 }
+                file.changeSuperhero();
             }
         }
         if(!isFound) {
@@ -169,7 +170,6 @@ public class Database {
     }
 
     public void addHeroesToDatabase() throws IOException {
-        // ArrayList<Superhero> fileToBeLoaded = file.loadHeroes();
         for(Superhero hero : file.loadHeroes()){
             superheroDataBase.add(hero);
         }
