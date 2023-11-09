@@ -173,6 +173,7 @@ public class Database {
         for(Superhero hero : file.loadHeroes()){
             superheroDataBase.add(hero);
         }
+        controller.yourHeroesHaveBeenLoadedFromUI();
     }
 
     public ArrayList<Superhero> getSuperheroDataBase(){
