@@ -42,8 +42,14 @@ public class Controller {
                 } else if (answer == 4) {
                     database.editHero();
                 } else if (answer == 5) {
+
                     database.addHeroesToDatabase();
                 } else if (answer == 9){
+
+                    UI.sortHeroesByAttributeMenu();
+                    database.sortHeroesByAttribute();
+                }
+                else if (answer == 9) {
                     runAgain = false;
                 } else {
                     UI.wrongChoice();
@@ -149,7 +155,6 @@ public class Controller {
     public void isYourHeroHumanFromUI() {
         UI.isYourHeroHuman();
     }
-
     public void yourHeroesHaveBeenLoadedFromUI() {
         UI.yourHeroesHaveBeenLoaded();
     }

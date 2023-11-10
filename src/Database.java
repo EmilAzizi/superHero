@@ -1,7 +1,9 @@
+import comparator.*;
 import superhero.Superhero;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Database {
@@ -19,7 +21,7 @@ public class Database {
 
     private final Filehandler file = new Filehandler("SuperheroDatabase.csv", this);
 
-    public Database(Controller controller){
+    public Database(Controller controller) {
         this.controller = controller;
     }
 
@@ -67,22 +69,22 @@ public class Database {
     }
 
     public void displayHeroes() {
-        if(superheroDataBase.isEmpty()){
-            controller.mustCreateHeroFromUI();
-        } else {
-            controller.yourHeroesAreFromUI();
-            int count = 0;
-            for (Superhero hero : superheroDataBase) {
-                count++;
-                controller.showHeroFromUI(count, hero.getName(), hero.getSuperHeroName(), hero.getRace(), hero.getStrength(), hero.getYear(), hero.getPower());
+            if (superheroDataBase.isEmpty()) {
+                controller.mustCreateHeroFromUI();
+            } else {
+                controller.yourHeroesAreFromUI();
+                int count = 0;
+                for (Superhero hero : superheroDataBase) {
+                    count++;
+                    controller.showHeroFromUI(count, hero.getName(), hero.getSuperHeroName(), hero.getRace(), hero.getStrength(), hero.getYear(), hero.getPower());
+                }
             }
-        }
     }
 
     public void searchForHero(int heroNameOrSuperheroName) {
         boolean isHeroFound = false;
         String searchForName = input.nextLine();
-        if(heroNameOrSuperheroName == 1){
+        if (heroNameOrSuperheroName == 1) {
             for (Superhero hero : superheroDataBase) {
                 if (hero.getName().contains(searchForName)) {
                     controller.searchForHeroFromUI(hero.getName(), hero.getSuperHeroName(), hero.getRace(), hero.getStrength(), hero.getYear(), hero.getPower());
@@ -90,7 +92,7 @@ public class Database {
                     break;
                 }
             }
-        } else if(heroNameOrSuperheroName == 2){
+        } else if (heroNameOrSuperheroName == 2) {
             for (Superhero hero : superheroDataBase) {
                 if (hero.getSuperHeroName().contains(searchForName)) {
                     controller.searchForHeroBySuperHeroName(hero.getSuperHeroName(), hero.getName(), hero.getRace(), hero.getStrength(), hero.getYear(), hero.getPower());
@@ -99,12 +101,13 @@ public class Database {
                 }
             }
         }
-        if(!isHeroFound){
+        if (!isHeroFound) {
             controller.isHeroNotFoundFromUI();
         }
     }
 
     public void editHero() throws IOException {
+
         controller.whichHeroToEditSearchByNormalNameFromUI();
         String changeHero = input.nextLine();
         boolean isFound = false;
@@ -116,28 +119,29 @@ public class Database {
                 int answer = input.nextInt();
                 input.nextLine();
 
+
                 if(answer == 1){
                     controller.changeHeroNametoFromUI();
                     String newName = input.nextLine();
                     hero.setName(newName);
 
-                } else if(answer == 2){
+                } else if (answer == 2) {
                     controller.doesHeroHaveSuperHeroNameFromUI();
                     char newSuperheroNameYesOrNo = input.next().charAt(0);
                     input.nextLine();
 
-                    if(newSuperheroNameYesOrNo == 'y' ||newSuperheroNameYesOrNo == 'Y'){
+                    if (newSuperheroNameYesOrNo == 'y' || newSuperheroNameYesOrNo == 'Y') {
                         controller.changeSuperHeroNameToFromUI();
                         String newSuperHeroName = input.nextLine();
                         hero.setSuperHeroName(newSuperHeroName);
-                    } else{
+                    } else {
                         hero.setSuperHeroName(null);
                     }
 
-                } else if(answer == 3){
+                } else if (answer == 3) {
                     controller.isYourHeroHumanFromUI();
                     char yesOrNo = input.next().charAt(0);
-                    if(yesOrNo == 'y' || yesOrNo == 'Y'){
+                    if (yesOrNo == 'y' || yesOrNo == 'Y') {
                         race = true;
                         hero.setRace(race);
                     } else {
@@ -145,18 +149,18 @@ public class Database {
                         hero.setRace(race);
                     }
 
-                } else if(answer == 4){
+                } else if (answer == 4) {
                     controller.changeHeroStrengthFromUI();
                     int newStrengthLevel = input.nextInt();
                     hero.setStrength(newStrengthLevel);
 
-                } else if(answer == 5){
+                } else if (answer == 5) {
                     controller.changeHeroYearFromUI();
                     int newYear = input.nextInt();
                     input.nextLine();
                     hero.setYear(newYear);
 
-                } else if(answer == 6){
+                } else if (answer == 6) {
                     controller.changeHeroPowerFromUI();
                     String newPower = input.nextLine();
                     hero.setPower(newPower);
@@ -164,10 +168,11 @@ public class Database {
                 file.changeSuperhero();
             }
         }
-        if(!isFound) {
+        if (!isFound) {
             controller.heroWasNotFoundFromUI();
         }
     }
+
 
     public void addHeroesToDatabase() throws IOException {
         for(Superhero hero : file.loadHeroes()){
@@ -178,5 +183,16 @@ public class Database {
 
     public ArrayList<Superhero> getSuperheroDataBase(){
         return superheroDataBase;
+
+    public void sortHeroesByAttribute() {
+        int userChoise = input.nextInt();
+        switch(userChoise) {
+            case 1 -> Collections.sort(superheroDataBase, new NameComparator());
+            case 2 -> Collections.sort(superheroDataBase, new SuperheroNameComparator());
+            case 3 -> Collections.sort(superheroDataBase, new RaceComparator());
+            case 4 -> Collections.sort(superheroDataBase, new StrenthComparator());
+            case 5 -> Collections.sort(superheroDataBase, new PowerComparator());
+            case 6 -> Collections.sort(superheroDataBase, new YearComparator());
+        }
     }
 }
