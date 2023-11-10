@@ -7,6 +7,7 @@ public class Controller {
     private final Database database = new Database(this);
     private final Scanner input;
     private final UserInterface UI = new UserInterface();
+    private boolean oneOrTwoAttributes;
 
 
     public Controller(){
@@ -42,12 +43,23 @@ public class Controller {
                 } else if (answer == 4) {
                     database.editHero();
                 } else if (answer == 5) {
-
+                    System.out.println("Would you like to search by one or two attributes?");
+                    int oneOrTwoChoices = input.nextInt();
+                    switch(oneOrTwoChoices){
+                        case 1 -> oneOrTwoAttributes = false;
+                        case 2 -> oneOrTwoAttributes = true;
+                    }
+                    if(oneOrTwoAttributes){
+                        UI.sortHeroesByAttributeMenu();
+                        int firstChoice = input.nextInt();
+                        int secondChoice = input.nextInt();
+                        database.sortHeroesByAttribute(firstChoice, secondChoice);
+                    } else {
+                        UI.sortHeroesByAttributeMenu();
+                        database.sortHeroesByOneAttribute();
+                    }
+                } else if (answer == 6){
                     database.addHeroesToDatabase();
-                } else if (answer == 9){
-
-                    UI.sortHeroesByAttributeMenu();
-                    database.sortHeroesByAttribute();
                 }
                 else if (answer == 9) {
                     runAgain = false;
