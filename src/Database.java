@@ -1,22 +1,25 @@
 import comparator.*;
 import superhero.Superhero;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class Database {
-    Superhero superhero;
-    Scanner input = new Scanner(System.in);
-    char yesOrNo;
-    String name;
-    boolean race;
-    int year;
-    int strength;
-    String power;
-    char superHeroNameYesOrNo;
+    private Superhero superhero;
+    private Scanner input = new Scanner(System.in);
+    private char yesOrNo;
+    private String name;
+    private boolean race;
+    private int year;
+    private int strength;
+    private String power;
+    private char superHeroNameYesOrNo;
     private ArrayList<Superhero> superheroDataBase = new ArrayList<>();
-    Controller controller;
+    private Controller controller;
+
+    private final Filehandler file = new Filehandler("SuperheroDatabase.csv", this);
 
     public Database(Controller controller) {
         this.controller = controller;
@@ -60,8 +63,9 @@ public class Database {
         return superhero;
     }
 
-    public void createSuperheroList() {
+    public void createSuperheroList() throws IOException {
         superheroDataBase.add(createSuperHero());
+        file.saveSuperheroToCSV(superheroDataBase);
     }
 
     public void displayHeroes() {
@@ -102,7 +106,8 @@ public class Database {
         }
     }
 
-    public void editHero() {
+    public void editHero() throws IOException {
+
         controller.whichHeroToEditSearchByNormalNameFromUI();
         String changeHero = input.nextLine();
         boolean isFound = false;
@@ -114,8 +119,9 @@ public class Database {
                 int answer = input.nextInt();
                 input.nextLine();
 
-                if (answer == 1) {
-                    controller.changeHeroPowerFromUI();
+
+                if(answer == 1){
+                    controller.changeHeroNametoFromUI();
                     String newName = input.nextLine();
                     hero.setName(newName);
 
@@ -159,12 +165,24 @@ public class Database {
                     String newPower = input.nextLine();
                     hero.setPower(newPower);
                 }
+                file.changeSuperhero();
             }
         }
         if (!isFound) {
             controller.heroWasNotFoundFromUI();
         }
     }
+
+
+    public void addHeroesToDatabase() throws IOException {
+        for(Superhero hero : file.loadHeroes()){
+            superheroDataBase.add(hero);
+        }
+        controller.yourHeroesHaveBeenLoadedFromUI();
+    }
+
+    public ArrayList<Superhero> getSuperheroDataBase(){
+        return superheroDataBase;
 
     public void sortHeroesByAttribute() {
         int userChoise = input.nextInt();

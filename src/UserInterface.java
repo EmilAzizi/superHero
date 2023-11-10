@@ -162,6 +162,10 @@ public class UserInterface {
         System.out.print("Is your hero human? [y/n] ");
     }
 
+    public void yourHeroesHaveBeenLoaded() {
+        System.out.println("Your heroes have been loaded.");
+    }
+
     public void sortHeroesByAttributeMenu() {
         System.out.println("""
                 What would you like to sort by?
